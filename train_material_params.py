@@ -11,6 +11,8 @@ import wandb
 
 import torch
 import torch.nn.functional as F
+import torch.utils.data
+
 from accelerate.utils import ProjectConfiguration
 from accelerate.logging import get_logger
 from accelerate.utils import set_seed
@@ -44,8 +46,8 @@ def convert_SH(
     shs_view,
     viewpoint_camera,
     pc: MeshGaussianModel,
-    position: torch.tensor,
-    rotation: torch.tensor = None,
+    position: torch.Tensor,
+    rotation: torch.Tensor = None,
 ):
     shs_view = shs_view.transpose(1, 2).view(-1, 3, (pc.max_sh_degree + 1) ** 2)
     dir_pp = position - viewpoint_camera.camera_center.repeat(shs_view.shape[0], 1)
@@ -369,6 +371,7 @@ class Trainer:
         self.scale = 1.0 / max_diff
         self.shift = torch.tensor([[1.0, 1.0, 1.0]]).float().cuda() - original_mean_pos * self.scale
 
+        # scaling to each size
         self.wld2sim = lambda p: p * self.scale + self.shift
         self.sim2wld = lambda p: (p - self.shift) / self.scale
 

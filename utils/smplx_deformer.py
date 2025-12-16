@@ -26,6 +26,7 @@ class SmplxDeformer():
                                            num_betas=num_betas, num_expression_coeffs=10, use_face_contour=False,
                                            use_pca=True, num_pca_comps=12, flat_hand_mean=False).eval().to(self.device)
         else:
+            # breakpoint()
             self.smplx_model = smplx.SMPLX(model_path=os.path.join(model_path, "smplx"), ext='npz', gender=gender,
                                            num_betas=num_betas, num_expression_coeffs=100, use_face_contour=False,
                                            use_pca=False).eval().to(self.device)
@@ -70,6 +71,7 @@ class SmplxDeformer():
                 fp.write('f %d %d %d\n' % (fi[0] + 1, fi[1] + 1, fi[2] + 1))
         fp.close()
 
+    # Forward for ActorsHQ
     def smplx_forward(self, smplx_param):
         if 'latent' in smplx_param:
             body_pose = pytorch3d.transforms.rotation_conversions.matrix_to_axis_angle(
@@ -132,6 +134,7 @@ class SmplxDeformer():
         # print(smplx_out.transform_mat.shape)
         return smplx_out
 
+    # Forward for 4D-Dress
     def smplx_forward_simple(self, smplx_param):
         smplx_param["return_full_pose"] = True
         smplx_param["return_shaped"] = True

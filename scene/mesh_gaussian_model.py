@@ -25,7 +25,7 @@ class MeshGaussianModel(GaussianModel):
     def __init__(self, sh_degree : int, device):
         super().__init__(sh_degree)
         self.device = device
-        self.shadow_net = None
+        self.shadow_net: ShadowUNet | None = None
 
     def init_from_trained_model(self, trained_model_path, spatial_lr_scale, uv_path, device):
         self.spatial_lr_scale = spatial_lr_scale
@@ -42,7 +42,7 @@ class MeshGaussianModel(GaussianModel):
             aomap_file = param_file.replace("params_", "aomap/mesh_cloth_").replace(".npz", ".png")
             ao_map = np.array(Image.open(aomap_file).convert("L")).astype(np.float32) / 255.
 
-            if idx == 0:
+            if idx == 0: # Inital timestep mesh
                 # scaling = torch.from_numpy(params_numpy['log_scales'], device=torch.float32, device=device)
                 # opacity = torch.from_numpy(params_numpy['logit_opacities'], dtype=torch.float32, device=device)
                 cam_m = torch.from_numpy(params_numpy['cam_m']).to(dtype=torch.float32, device=device)
