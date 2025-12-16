@@ -8,6 +8,7 @@ from glob import glob
 from PIL import Image
 import logging
 
+os.environ['CUDA_VISIBLE_DEVICES'] = '0' # manual setting
 import torch
 import torch.nn.functional as F
 from accelerate.utils import ProjectConfiguration
