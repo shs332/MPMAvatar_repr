@@ -1,3 +1,5 @@
+set -ex
+
 SUBJECT=191
 TAKE=2
 START_IDX=21
@@ -5,7 +7,7 @@ NUM_FRAMES=100
 DATADIR="../data"
 TRACKDIR="../output/tracking"
 GENDER=female
-WANDB_ENTITY=xxxx
+WANDB_ENTITY=shs332
 
 python train_mesh_lbs_4ddress.py \
 --save_name s${SUBJECT}_t${TAKE}_${START_IDX}_${NUM_FRAMES} \
