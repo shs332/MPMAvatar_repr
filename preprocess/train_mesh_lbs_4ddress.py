@@ -555,7 +555,7 @@ def train(args):
             loss, variables = get_loss(params, curr_data, variables, is_initial_timestep, args)
             loss.backward()
             with torch.no_grad():
-                report_progress(params, variables, dataset[0], i, progress_bar, num_iter_per_timestep)
+                report_progress(params, variables, dataset[0], i, progress_bar, num_iter_per_timestep, every_i=10)
 
                 optimizer.step()
                 optimizer.zero_grad(set_to_none=True)

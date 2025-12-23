@@ -39,17 +39,20 @@ KAIST
  $ tar -xJf ./blender-4.4.1-linux-x64.tar.xz -C ./
  $ rm -f ./blender-4.4.1-linux-x64.tar.xz
  $ mv ./blender-4.4.1-linux-x64 /usr/local/blender
- $ export PATH=/usr/local/blender:$PATH </pre></code>
+ $ echo "export PATH=/usr/local/blender:$PATH" >> ~/.bashrc </pre></code>
 
-3. Create conda environment and install required pip packages
+> [!NOTE]
+> The `bpy` module is Blender's Python API and comes bundled with Blender. Scripts that import `bpy` (e.g., `blender/bake.py`) must be executed using Blender's Python interpreter, not your conda environment. These scripts are automatically called by the preprocessing pipeline using the `blender` command.
+
+4. Create conda environment and install required pip packages
 
 <pre><code> $ conda create -n mpmavatar python=3.10
  $ conda activate mpmavatar
  $ pip install torch==2.0.0+cu118 torchvision==0.15.1+cu118 -f https://download.pytorch.org/whl/torch_stable.html
  $ pip install -r ./requirements.txt
- $ pip install git+https://gitlab.inria.fr/bkerbl/simple-knn.git
- $ pip install git+https://github.com/slothfulxtx/diff-gaussian-rasterization.git
- $ FORCE_CUDA=1 pip install git+https://github.com/facebookresearch/pytorch3d.git </pre></code>
+ $ pip install --no-build-isolation git+https://gitlab.inria.fr/bkerbl/simple-knn.git
+ $ pip install --no-build-isolation git+https://github.com/slothfulxtx/diff-gaussian-rasterization.git
+ $ FORCE_CUDA=1 pip install --no-build-isolation git+https://github.com/facebookresearch/pytorch3d.git </pre></code>
 
 &nbsp;
 
