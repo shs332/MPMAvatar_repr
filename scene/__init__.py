@@ -80,7 +80,7 @@ class Scene:
             self.test_take = args.test_take
     
             self.train_dataset = DRESS4DDataset(
-                os.path.join(self.dataset_dir, f"4D-DRESS/{self.subject:05d}_Inner/Inner/Take{self.train_take}"),
+                os.path.join(self.dataset_dir, f"4D-DRESS/{self.subject:05d}/Inner/Take{self.train_take}"),
                 white_bkgd=self.white_bkgd,
                 downscale_ratio=self.image_downscale_ratio,
                 test_camera_index=self.test_camera_index,
@@ -89,7 +89,7 @@ class Scene:
                 return_type=return_type
             )
             self.test_dataset = DRESS4DDataset(
-                os.path.join(self.dataset_dir, f"4D-DRESS/{self.subject:05d}_Inner/Inner/Take{self.test_take}"),
+                os.path.join(self.dataset_dir, f"4D-DRESS/{self.subject:05d}/Inner/Take{self.test_take}"),
                 white_bkgd=self.white_bkgd,
                 downscale_ratio=self.image_downscale_ratio,
                 test_camera_index=self.test_camera_index,

@@ -48,6 +48,7 @@ class DRESS4DDataset(Dataset):
             self.camera_list = [cam for i, cam in enumerate(cameras) if i in self.test_camera_index]
         
         if self.return_type == "image":
+            # training
             self.idx_list = [(camera_idx, frame_idx) for camera_idx in range(len(self.camera_list)) for frame_idx in range(len(self.frame_index))]
             self.rgb_path_list, self.msk_path_list = self._load_image_path_dataset()
         elif self.return_type == "video":

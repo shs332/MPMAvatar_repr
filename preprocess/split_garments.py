@@ -118,6 +118,8 @@ if args.cloth_npz == "None" and args.cloth_npy == "None":
     cloth_f = torch.tensor(cloth_f).int().cuda()
     is_cloth_faces = torch.isin(faces, torch.tensor(cloth_f).int().cuda()).all(dim=1)
 elif args.cloth_npz != "None":
+    # breakpoint()
+    # 3: upper, 4: lower
     cloth_vertices = np.concatenate([v for k, v in np.load(args.cloth_npz).items() if int(k) in args.labels], 0)
     cloth_vertices = torch.tensor(cloth_vertices).float().cuda()
     is_cloth_faces = torch.isin(faces, cloth_vertices).all(dim=1)
