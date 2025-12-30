@@ -277,7 +277,7 @@ class Trainer:
                     smplx_path = os.path.join(self.scene.dataset_dir, f"a{self.scene.actor}_s{self.scene.sequence}", "smplx_fitted", f"{frame:06d}", "smplx_icp.obj")
                 smplx_verts, _ = read_obj(smplx_path)
             elif self.scene.dataset_type == "4ddress":
-                smplx_verts, _ = read_ply(os.path.join(self.scene.dataset_dir, f"4D-DRESS/{self.scene.subject:05d}_Inner/Inner/Take{self.scene.train_take}", f"SMPLX/mesh-f{frame:05d}_smplx.ply"))
+                smplx_verts, _ = read_ply(os.path.join(self.scene.dataset_dir, f"4D-DRESS/{self.scene.subject:05d}/Inner/Take{self.scene.train_take}", f"SMPLX/mesh-f{frame:05d}_smplx.ply"))
             train_frame_smplx.append(smplx_verts)
         train_frame_smplx = np.stack(train_frame_smplx, 0)
         self.train_frame_smplx = torch.tensor(train_frame_smplx).float().cuda()
@@ -292,7 +292,7 @@ class Trainer:
                 smplx_param_first = {k: v.cuda() for k, v in torch.load(smplx_param_path).items()}
             smplx_out_first = self.lbs_deformer.smplx_forward(smplx_param_first)
         elif self.scene.dataset_type == "4ddress":
-            with open(os.path.join(self.scene.dataset_dir, f"4D-DRESS/{self.scene.subject:05d}_Inner/Inner/Take{self.scene.train_take}", f"SMPLX/mesh-f{self.verts_start_idx:05d}_smplx.pkl"), "rb") as smplx_pickle:
+            with open(os.path.join(self.scene.dataset_dir, f"4D-DRESS/{self.scene.subject:05d}/Inner/Take{self.scene.train_take}", f"SMPLX/mesh-f{self.verts_start_idx:05d}_smplx.pkl"), "rb") as smplx_pickle:
                 smplx_param_first_numpy = pickle.load(smplx_pickle)
             smplx_param_first = {k: torch.from_numpy(v).cuda()[None] for k, v in smplx_param_first_numpy.items()}
             smplx_out_first = self.lbs_deformer.smplx_forward_simple(smplx_param_first)
@@ -315,7 +315,7 @@ class Trainer:
                 else:
                     smplx_param = {k: v.cuda() for k, v in torch.load(smplx_param_path).items()}
             elif self.scene.dataset_type == "4ddress":
-                with open(os.path.join(self.scene.dataset_dir, f"4D-DRESS/{self.scene.subject:05d}_Inner/Inner/Take{self.scene.test_take}", f"SMPLX/mesh-f{frame:05d}_smplx.pkl"), "rb") as smplx_pickle:
+                with open(os.path.join(self.scene.dataset_dir, f"4D-DRESS/{self.scene.subject:05d}/Inner/Take{self.scene.test_take}", f"SMPLX/mesh-f{frame:05d}_smplx.pkl"), "rb") as smplx_pickle:
                     smplx_param_numpy = pickle.load(smplx_pickle)
                 smplx_param = {k: torch.from_numpy(v).cuda()[None] for k, v in smplx_param_numpy.items()}
             test_smplx_params_list.append(smplx_param)

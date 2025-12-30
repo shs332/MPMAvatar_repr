@@ -25,34 +25,35 @@ KAIST
 
 1. Clone this repository
 
-<pre><code> $ git clone https://github.com/KAISTChangmin/MPMAvatar.git
- $ cd MPMAvatar </pre></code>
+<pre><code> git clone https://github.com/KAISTChangmin/MPMAvatar.git
+ cd MPMAvatar </pre></code>
 
 2. Install required apt packages
 
-<pre><code> $ sudo apt-get update
- $ sudo apt-get install ffmpeg gdebi libgl1-mesa-glx libopencv-dev libsm6 libxrender1 libfontconfig1 libglvnd0 libegl1 libgles2 </pre></code>
+<pre><code> sudo apt-get update
+ sudo apt-get install ffmpeg gdebi libgl1-mesa-glx libopencv-dev libsm6 libxrender1 libfontconfig1 libglvnd0 libegl1 libgles2 </pre></code>
  
 3. Install [Blender](https://www.blender.org/) for Ambient Occlusion map baking
 
-<pre><code> $ curl -OL https://download.blender.org/release/Blender4.4/blender-4.4.1-linux-x64.tar.xz
- $ tar -xJf ./blender-4.4.1-linux-x64.tar.xz -C ./
- $ rm -f ./blender-4.4.1-linux-x64.tar.xz
- $ mv ./blender-4.4.1-linux-x64 /usr/local/blender
- $ echo "export PATH=/usr/local/blender:$PATH" >> ~/.bashrc </pre></code>
+<pre><code> curl -OL https://download.blender.org/release/Blender4.4/blender-4.4.1-linux-x64.tar.xz
+ tar -xJf ./blender-4.4.1-linux-x64.tar.xz -C ./
+ rm -f ./blender-4.4.1-linux-x64.tar.xz
+ mv ./blender-4.4.1-linux-x64 /usr/local/blender
+ echo "export PATH=/usr/local/blender:$PATH" >> ~/.bashrc </pre></code>
 
 > [!NOTE]
 > The `bpy` module is Blender's Python API and comes bundled with Blender. Scripts that import `bpy` (e.g., `blender/bake.py`) must be executed using Blender's Python interpreter, not your conda environment. These scripts are automatically called by the preprocessing pipeline using the `blender` command.
 
 4. Create conda environment and install required pip packages
 
-<pre><code> $ conda create -n mpmavatar python=3.10
- $ conda activate mpmavatar
- $ pip install torch==2.0.0+cu118 torchvision==0.15.1+cu118 -f https://download.pytorch.org/whl/torch_stable.html
- $ pip install -r ./requirements.txt
- $ pip install --no-build-isolation git+https://gitlab.inria.fr/bkerbl/simple-knn.git
- $ pip install --no-build-isolation git+https://github.com/slothfulxtx/diff-gaussian-rasterization.git
- $ FORCE_CUDA=1 pip install --no-build-isolation git+https://github.com/facebookresearch/pytorch3d.git </pre></code>
+<pre><code> conda create -n mpmavatar python=3.10
+ conda activate mpmavatar
+ pip install torch==2.0.0+cu118 torchvision==0.15.1+cu118 -f https://download.pytorch.org/whl/torch_stable.html
+ pip install -r ./requirements.txt
+ pip install --no-build-isolation git+https://gitlab.inria.fr/bkerbl/simple-knn.git
+ pip install --no-build-isolation git+https://github.com/slothfulxtx/diff-gaussian-rasterization.git
+ FORCE_CUDA=1 pip install --no-build-isolation git+https://github.com/facebookresearch/pytorch3d.git
+</pre></code>
 
 &nbsp;
 
@@ -111,23 +112,23 @@ You can download them from this [link](https://drive.google.com/drive/folders/1Z
    
 ## Preprocessing
 
-<pre><code> $ cd preprocess
- $ bash ./scripts/actorshq_a1.sh
- $ cd .. </pre></code>
+<pre><code> cd preprocess
+ bash ./scripts/actorshq_a1.sh
+ cd .. </pre></code>
 
 ## Training
 
-<pre><code> $ bash ./scripts/appearance/actorshq_a1.sh
- $ bash ./scripts/physics/actorshq_a1.sh </pre></code>
+<pre><code> bash ./scripts/appearance/actorshq_a1.sh
+ bash ./scripts/physics/actorshq_a1.sh </pre></code>
 
 ## Simulation & Rendering
 
-<pre><code> $ bash ./scripts/sim/actorshq_a1.sh </pre></code>
+<pre><code> bash ./scripts/sim/actorshq_a1.sh </pre></code>
 
 ## Evaluation
 
-<pre><code> $ bash ./scripts/eval/actorshq_a1.sh </pre></code>
+<pre><code> bash ./scripts/eval/actorshq_a1.sh </pre></code>
 
 ## Run Demo
 
-<pre><code> $ python run_demo.py --save_name chair_sand --output_dir ./output/demo </pre></code>
+<pre><code> python run_demo.py --save_name chair_sand --output_dir ./output/demo </pre></code>

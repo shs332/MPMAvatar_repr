@@ -14,6 +14,7 @@ from utils.image_utils import psnr
 from argparse import ArgumentParser, Namespace
 from arguments import ModelParams, PipelineParams, OptimizationParams
 from time import time
+import torch.utils.data
 
 try:
     from torch.utils.tensorboard import SummaryWriter
