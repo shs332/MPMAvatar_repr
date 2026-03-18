@@ -42,7 +42,7 @@ KAIST
  echo "export PATH=/usr/local/blender:$PATH" >> ~/.bashrc </pre></code>
 
 > [!NOTE]
-> The `bpy` module is Blender's Python API and comes bundled with Blender. Scripts that import `bpy` (e.g., `blender/bake.py`) must be executed using Blender's Python interpreter, not your conda environment. These scripts are automatically called by the preprocessing pipeline using the `blender` command.
+ Install `bpy` with manual pip installation, or install full blender program.
 
 4. Create conda environment and install required pip packages
 
@@ -54,6 +54,17 @@ KAIST
  pip install --no-build-isolation git+https://github.com/slothfulxtx/diff-gaussian-rasterization.git
  FORCE_CUDA=1 pip install --no-build-isolation git+https://github.com/facebookresearch/pytorch3d.git
 </pre></code>
+
+or, 
+```bash
+ conda create -n mpmavatar python=3.10
+ conda activate mpmavatar
+pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu124
+ pip install -r ./requirements.txt
+ pip install --no-build-isolation git+https://gitlab.inria.fr/bkerbl/simple-knn.git
+ pip install --no-build-isolation git+https://github.com/slothfulxtx/diff-gaussian-rasterization.git
+ FORCE_CUDA=1 pip install --no-build-isolation git+https://github.com/facebookresearch/pytorch3d.git
+```
 
 &nbsp;
 
