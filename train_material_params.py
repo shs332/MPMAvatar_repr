@@ -520,7 +520,7 @@ class Trainer:
     def compute_rest_dir_inv_from_vf(self, vertices, faces):
         # Compute Initial Direction Matrices
         d1 = vertices[faces[:,1]] - vertices[faces[:,0]]
-        d2 = vertices[faces[:,2]] - vertices[faces[:,0]]
+        d2 = vertices[faces[:,2]] - vertices[faces[:,0]] # (N, 3) respectively
 
         # Compute Inverse of Direction Matrices (QR composed)
         R11 = d1.norm(dim=1)
@@ -535,11 +535,11 @@ class Trainer:
 
     def compute_dir_vol(self, vertices, faces, thickness):
         # Compute Initial Direction Matrices
-        d1 = vertices[faces[:,1]] - vertices[faces[:,0]]
-        d2 = vertices[faces[:,2]] - vertices[faces[:,0]]
-        d3 = d1.cross(d2)
+        d1 = vertices[faces[:,1]] - vertices[faces[:,0]] # (N, 3)
+        d2 = vertices[faces[:,2]] - vertices[faces[:,0]] # (N, 3)
+        d3 = d1.cross(d2) # (N, 3)
         d3 /= d3.norm(dim=1, keepdim=True)
-        init_dir = torch.stack([d1, d2, d3], -1)
+        init_dir = torch.stack([d1, d2, d3], -1) # (N, 3, 3)
 
         # Compute Inverse of Direction Matrices (QR composed)
         R11 = d1.norm(dim=1)
